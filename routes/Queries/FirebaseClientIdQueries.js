@@ -14,46 +14,31 @@ const query = promisify(pool.query)
 const stringify_rows = res => res.rows.map(row => JSON.stringify(row))
 
 const json_rows = res => res.map(row => JSON.parse(row))
-//log_through: log each row
-const log_through = data => {
-  // console.log(data)
-  return data
-}
-
 
 exports.saveFirebaseClientIDAndTenantRelationship = (tenant_id, firebase_client_id) => {
   const values = [tenant_id, firebase_client_id]
 
-  const get_landlord = ``
+  const insert_relationship = `INSERT INTO firebase_device_relationship (tenant_id, firebase_client_id) VALUES ($1, $2)`
 
-  const return_rows = (rows) => {
-    return rows[0]
-  }
-  return query(get_landlord, values)
-    .then((data) => {
-      return stringify_rows(data)
-    })
-    .then((data) => {
-      return json_rows(data)
-    })
-    .then((data) => {
-      return return_rows(data)
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+  query(insert_relationship, values)
+  .then(() => {
+    console.log('INSERTED')
+  })
+  .catch((err) => {
+    console.log('INSERTION ERROR')
+  })
 }
 
 
 exports.getFirebaseClientIDFromTenantId = (tenant_id) => {
   const values = [tenant_id]
 
-  const get_landlord = ``
+  const get_relationship = `SELECT * FROM firebase_device_relationship WHERE tenant_id = $1`
 
   const return_rows = (rows) => {
     return rows[0]
   }
-  return query(get_landlord, values)
+  return query(get_relationship, values)
     .then((data) => {
       return stringify_rows(data)
     })
