@@ -7,14 +7,14 @@ const saveFirebaseClientIDAndTenantRelationship = require('./Queries/FirebaseCli
 exports.send_notification = function(req, res, next){
   const notification = req.body.notification
   const tenant_id = req.body.tenant_id
-  getFirebaseClientIDFromTenantId(tenant_id).then((clientID) => {
-    return sendNotification(notification, clientID)
+  getFirebaseClientIDFromTenantId(tenant_id).then((data) => {
+    return sendNotification(notification, data[0].firebase_client_id)
   }).then((data) => {
     res.json({
       message: "Successfully sent notification"
     })
   }).catch((err) => {
-    console.log(err)
+    // console.log(err)
     res.status(500).send({
       message: 'An error occurred'
     })
@@ -34,3 +34,5 @@ exports.save_firebase_client = function(req, res, next){
     })
   })
 }
+
+//

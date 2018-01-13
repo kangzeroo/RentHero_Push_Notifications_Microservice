@@ -1,25 +1,15 @@
-# The Ultimate Node Jumpstart
-Includes the following technologies:
-- NodeJS v6.3.1 LTS
-- ExpressJS with HTTPS
-- RxJS
-- Websockets via Socket.io
-- Dockerized
-- AWS SDK
+# Push Notifications Microservice (Part of Orchestra)
+Try it with this POST request on POSTMAN:
 
-## Setup
-$ npm install <br />
-$ npm run dev <br />
-$ npm run prod <br />
+`
+{ "notification": {
+  "title": "Upcoming Tour",
+  "body": "115 Albert St",
+  "click_action" : "https://localhost:4000/app/dates/tours/overview",
+  "icon": "https://s3.amazonaws.com/rentburrow-static-assets/Icons/favicon.png"
+},
 
-### Build and run docker images with:
-$ bash build.sh <br />
-$ bash run.sh <br />
+"tenant_id" : "1ebe695b-05b7-48e3-bcfa-57cb8f9828b1"
 
-### Check docker images and containers with:
-$ docker images <br />
-$ docker ps <br />
-
-### remove docker images and containers with:
-$ docker rm <CONTAINER_ID> <br />
-$ docker rmi <IMAGE_ID> <br />
+}
+`
